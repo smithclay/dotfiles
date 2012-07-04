@@ -4,9 +4,7 @@ autoload colors && colors
 
 svn() {
   if [ -d ".svn" ]; then
-    scm_has_info=1
-    #scm_branch=`svn info | grep '^URL:' | egrep -o '(tags|branches)/[^/]+|trunk' | egrep -o '[^/]+$'`
-    echo "%{$fg_bold[green]%}svn"
+    
   fi
 }
 
