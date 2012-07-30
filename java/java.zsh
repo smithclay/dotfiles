@@ -30,4 +30,5 @@ export CATALINA_OPTS="$CATALINA_OPTS $JPDA_OPTS -Xmx1024m -XX:MaxPermSize=512m
 # Configure aliases
 alias stc='$TOMCAT_HOME/bin/startup.sh'
 alias htc='$TOMCAT_HOME/bin/shutdown.sh'
+alias ttc='tail -f $TOMCAT_HOME/logs/postapp.log'
 
