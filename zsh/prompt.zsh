@@ -2,9 +2,20 @@ autoload colors && colors
 # cheers, @ehrenmurdick
 # http://github.com/ehrenmurdick/config/blob/master/zsh/prompt.zsh
 
-svn() {
+scm() {
   if [ -d ".svn" ]; then
-    
+      #scm_branch=`svn info | grep '^URL:' | egrep -o '(tags|branches)/[^/]+|trunk' | egrep -o '[^/]+$'`
+      REV=$(svn info 2>/dev/null | grep Revision | sed -e 's/Revision: //')
+      URL=$(svn info | grep '^URL:' | egrep -o '((tags|branches)/[^/]+|trunk).*' | sed -E -e 's/^(branches|tags)\///g')
+      
+      change_count=`svn status | grep "?\|\!\|M\|A" | wc -l`
+      if [ "$change_count" != "       0" ]; then
+        echo "%{$fg_bold[red]%}$REV%{$reset_color%} $URL"
+      else
+        echo "%{$fg_bold[green]%}$REV%{$reset_color%} $URL"
+      fi
+
+      #echo `svn info | grep '^Repository Root:' | egrep -o '(http|https|file|svn|svn+ssh)/[^/]+' | egrep -o '[^/]+$'`
   fi
 }
 
@@ -78,7 +89,7 @@ directory_name(){
   echo "%{$fg_bold[cyan]%}%1/%\/%{$reset_color%}"
 }
 
-export PROMPT=$'\n$(directory_name) $(svn)$(git_dirty)$(need_push)\n› '
+export PROMPT=$'\n$(directory_name) $(scm)$(git_dirty)$(need_push)\n› '
 set_prompt () {
   export RPROMPT="%{$fg_bold[cyan]%}$(todo)%{$reset_color%}"
 }
