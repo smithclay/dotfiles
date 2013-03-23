@@ -1,4 +1,3 @@
-export M2_HOME=/usr/share/maven
 
 # Set different home directories based on OS
 
