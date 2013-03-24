@@ -15,5 +15,9 @@ fi
 
 # Install homebrew packages
 brew install grc coreutils spark
+brew install wget --enable-iri
+brew install git
+brew install node
+brew install rbenv
 
 exit 0
